@@ -66,13 +66,13 @@ return function(_K)
 			print("Custom command ran on server!", context, message)
 
 			-- Create a simple Roblox message object
-			local messageInstance = Instance.new("Message", workspace)
+			--local messageInstance = Instance.new("Message", workspace)
 
 			-- Since our message is optional we need to check for context.OPTIONAL
-			messageInstance.Text = if message == context.OPTIONAL then "Default message" else message
+			local messageInstance = if message == context.OPTIONAL then "Default message" else message
 
 			-- This will destroy the message after 5 seconds
-			task.delay(5, messageInstance.Destroy, messageInstance)
+			task.delay(5, print, messageInstance)
 
 			-- Number of times the command has been used on this server
 			context.env.countServer += 1

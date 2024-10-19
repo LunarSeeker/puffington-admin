@@ -4,11 +4,11 @@ local Defer = {}
 
 -- Call at start of process to prevent unnecessarily waiting.
 function Defer.reset(budget: number?)
-	expireTime = tick() + (defaultBudget or budget)
+	expireTime = os.clock() + (defaultBudget or budget)
 end
 
 function Defer.wait(budget: number?)
-	if tick() >= expireTime then
+	if os.clock() >= expireTime then
 		task.wait()
 		Defer.reset(budget)
 	end
