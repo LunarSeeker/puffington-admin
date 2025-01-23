@@ -4,8 +4,7 @@ local UserService = game:GetService("UserService")
 local Retry = require(script.Parent:WaitForChild("Retry"))
 local Signal = require(script.Parent:WaitForChild("Signal"))
 
-local userInfoCache =
-	{} :: { [number]: { Id: number, Username: string, DisplayName: string, HasVerifiedBadge: boolean } }
+local userInfoCache = {} :: { [number]: { Id: number, Username: string, DisplayName: string, HasVerifiedBadge: boolean } }
 
 local loading = {}
 local function getUserInfo(userId: number, check: boolean?)

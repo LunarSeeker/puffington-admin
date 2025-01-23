@@ -339,14 +339,12 @@ Players.PlayerRemoving:Connect(onPlayerRemoved)
 
 ----------------------------------------------------------------------------------------------------------------------------
 -- Garbage Collection
-----------------------------------------------------------------------------------------------------------------------------
 
-while task.wait(1) do
+while true do
+	task.wait(1)
 	for part, key in pairs(partToKey) do
 		if not part:IsDescendantOf(workspace) then
 			removePartKey(key)
 		end
 	end
 end
-
-----------------------------------------------------------------------------------------------------------------------------

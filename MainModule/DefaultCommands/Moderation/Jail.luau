@@ -112,11 +112,7 @@ function Jail.new(player)
 	task.defer(function()
 		repeat
 			task.wait()
-			if
-				player
-				and player.Character
-				and not pointInBounds(player.Character:GetPivot().Position, lowerBounds, upperBounds)
-			then
+			if player and player.Character and not pointInBounds(player.Character:GetPivot().Position, lowerBounds, upperBounds) then
 				Jail.recapture(player.Character)
 			end
 		until not player or jailParts[player.UserId] == nil

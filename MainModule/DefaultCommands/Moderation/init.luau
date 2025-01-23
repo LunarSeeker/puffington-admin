@@ -1178,13 +1178,13 @@ return {
 			local limitTime = 0
 			_K.Remote.FPS.OnClientEvent:Connect(function(fps: number?)
 				fps = fps or 32
-				local t = tick()
+				local t = os.clock()
 				limitTime = t
 
 				while t == limitTime and _K.UI.LocalPlayer:GetAttribute("_KFPSLimit") do
-					local nextStep = tick() + (1 / fps :: number)
+					local nextStep = os.clock() + (1 / fps :: number)
 					repeat
-					until tick() > nextStep
+					until os.clock() > nextStep
 					task.wait()
 				end
 			end)

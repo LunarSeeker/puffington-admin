@@ -614,10 +614,10 @@ return {
 						sound:Play()
 					end)
 
-					local start, alpha = tick(), 0
+					local start, alpha = os.clock(), 0
 					repeat
 						alpha = _K.Util.Services.TweenService:GetValue(
-							1 - (1 - math.clamp((tick() + 1 - start) / 8, 0, 1)) ^ 2,
+							1 - (1 - math.clamp((os.clock() + 1 - start) / 8, 0, 1)) ^ 2,
 							Enum.EasingStyle.Bounce,
 							Enum.EasingDirection.In
 						)
@@ -635,10 +635,10 @@ return {
 						task.wait()
 					until alpha == 1
 
-					start, alpha = tick(), 0
+					start, alpha = os.clock(), 0
 					repeat
 						alpha = _K.Util.Services.TweenService:GetValue(
-							math.clamp((tick() - start) / 1, 0, 1),
+							math.clamp((os.clock() - start) / 1, 0, 1),
 							Enum.EasingStyle.Cubic,
 							Enum.EasingDirection.In
 						)

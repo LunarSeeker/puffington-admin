@@ -235,56 +235,56 @@ return {
 					continue
 				end
 
-				local move = NEW "Tool" {
+				local move = NEW("Tool")({
 					Name = "_KGameTool",
 					Grip = CFrame.new(-0.05, -0.1, -0.8) * CFrame.Angles(math.pi / 2, 0, 0),
 
-					NEW "Part" {
+					NEW("Part")({
 						Name = "Handle",
 						Size = Vector3.new(0.2, 0.8, 3),
 						CanCollide = false,
-						NEW "SpecialMesh" {
+						NEW("SpecialMesh")({
 							MeshId = "rbxassetid://16884681",
 							TextureId = "rbxassetid://16884673",
 							Offset = Vector3.new(0.1, 0, 0),
-						},
-					},
-				}
+						}),
+					}),
+				})
 				move:AddTag("_KGameTool")
 				move.Parent = player.Backpack
 
-				local clone = NEW "Tool" {
+				local clone = NEW("Tool")({
 					Name = "_KClone",
 					Grip = CFrame.new(0.05, 0, -1) * CFrame.Angles(math.pi / 2, 0, 0),
 
-					NEW "Part" {
+					NEW("Part")({
 						Name = "Handle",
 						Size = Vector3.new(1, 0.8, 4),
 						CanCollide = false,
-						NEW "SpecialMesh" {
+						NEW("SpecialMesh")({
 							MeshId = "rbxasset://fonts/clonewand.mesh",
 							TextureId = "rbxasset://textures/CloneWandTexture.png",
 							Scale = Vector3.new(0.75, 0.75, 1),
-						},
-					},
-				}
+						}),
+					}),
+				})
 				clone:AddTag("_KClone")
 				clone.Parent = player.Backpack
 
-				local delete = NEW "Tool" {
+				local delete = NEW("Tool")({
 					Name = "_KHammer",
 					Grip = CFrame.new(0, -1, 0),
 
-					NEW "Part" {
+					NEW("Part")({
 						Name = "Handle",
 						Size = Vector3.new(1, 3.8, 1),
 						CanCollide = false,
-						NEW "SpecialMesh" {
+						NEW("SpecialMesh")({
 							MeshId = "rbxasset://fonts/hammer.mesh",
 							TextureId = "rbxasset://textures/hammertex128.png",
-						},
-					},
-				}
+						}),
+					}),
+				})
 				delete:AddTag("_KHammer")
 				delete.Parent = player.Backpack
 			end

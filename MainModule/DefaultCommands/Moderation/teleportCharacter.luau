@@ -27,8 +27,7 @@ local function teleportCharacter(from, to)
 	end
 
 	-- add a small offset to prevent clipping
-	local offset =
-		Vector3.new((math.random(1, 2) - 1) * math.random(2, 4), 0, (math.random(1, 2) - 1) * math.random(2, 4))
+	local offset = Vector3.new((math.random(1, 2) - 1) * math.random(2, 4), 0, (math.random(1, 2) - 1) * math.random(2, 4))
 	local cframe = to:GetPivot() + offset
 	from:PivotTo(cframe)
 	local player = Players:GetPlayerFromCharacter(from)

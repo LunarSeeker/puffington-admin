@@ -51,41 +51,34 @@ UserInputService.InputEnded:Connect(onInputEnded)
 -- Tool Style
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-local style =
-{
-	_KGameTool =
-	{
-		Icon = "rbxassetid://1048129653";
-		HoverColor = Color3.fromRGB(25,153,255);
-		Cursors =
-		{
-			Idle = "rbxassetid://1000000";
-			Hover = "rbxasset://textures/DragCursor.png";
-			Grab = "rbxasset://textures/GrabRotateCursor.png";
-		};
-	};
-	_KClone =
-	{
-		Icon = "rbxasset://textures/Clone.png";
-		HoverColor = Color3.fromRGB(25,153,255);
-		Cursors =
-		{
-			Idle = "rbxasset://textures/CloneCursor.png";
-			Hover = "rbxassetid://1048136830";
-			Grab = "rbxasset://textures/GrabRotateCursor.png";
-		}
-	};
-	_KHammer =
-	{
-		Icon = "rbxasset://textures/Hammer.png";
-		HoverColor = Color3.new(1,0.5,0);
-		CanShowWithHover = true;
-		Cursors =
-		{
-			Idle = "rbxasset://textures/HammerCursor.png";
-			Hover = "rbxasset://textures/HammerOverCursor.png";
-		}
-	}
+local style = {
+	_KGameTool = {
+		Icon = "rbxassetid://1048129653",
+		HoverColor = Color3.fromRGB(25, 153, 255),
+		Cursors = {
+			Idle = "rbxassetid://1000000",
+			Hover = "rbxasset://textures/DragCursor.png",
+			Grab = "rbxasset://textures/GrabRotateCursor.png",
+		},
+	},
+	_KClone = {
+		Icon = "rbxasset://textures/Clone.png",
+		HoverColor = Color3.fromRGB(25, 153, 255),
+		Cursors = {
+			Idle = "rbxasset://textures/CloneCursor.png",
+			Hover = "rbxassetid://1048136830",
+			Grab = "rbxasset://textures/GrabRotateCursor.png",
+		},
+	},
+	_KHammer = {
+		Icon = "rbxasset://textures/Hammer.png",
+		HoverColor = Color3.new(1, 0.5, 0),
+		CanShowWithHover = true,
+		Cursors = {
+			Idle = "rbxasset://textures/HammerCursor.png",
+			Hover = "rbxasset://textures/HammerOverCursor.png",
+		},
+	},
 }
 
 if not style[mode] then
@@ -126,35 +119,35 @@ end
 
 local function startDraggerAction(mPart)
 	if mode == "_KHammer" then
-		gateway:InvokeServer("RequestDelete",mPart)
+		gateway:InvokeServer("RequestDelete", mPart)
 		return
 	end
 
-	local pointOnMousePart = mPart.CFrame:toObjectSpace(mouse.Hit).p
-	local canDrag,dragKey,mousePart = gateway:InvokeServer("GetKey",mPart,mode == "_KClone")
+	local pointOnMousePart = mPart.CFrame:ToObjectSpace(mouse.Hit).Position
+	local canDrag, dragKey, mousePart = gateway:InvokeServer("GetKey", mPart, mode == "_KClone")
 
 	if canDrag and mousePart then
 		selection.Adornee = mousePart
 		selection.Transparency = 0
 		currentKey = dragKey
 		mouse.Icon = getIcon("Grab")
-		Dragger:MouseDown(mousePart,pointOnMousePart,{mousePart})
+		Dragger:MouseDown(mousePart, pointOnMousePart, { mousePart })
 		down = true
 
 		local lastSubmit = 0
 		while down do
-			local now = tick()
+			local now = os.clock()
 			Dragger:MouseMove(mouse.UnitRay)
 
 			local mousePart = selection.Adornee
 			if mousePart and currentKey then
-				if isKeyDown('R') then
-					Dragger:AxisRotate('Z')
-				elseif isKeyDown('T') then
-					Dragger:AxisRotate('X')
+				if isKeyDown("R") then
+					Dragger:AxisRotate("Z")
+				elseif isKeyDown("T") then
+					Dragger:AxisRotate("X")
 				end
 				if now - lastSubmit > 0.03 then
-					submitUpdate:FireServer(currentKey,mousePart.CFrame)
+					submitUpdate:FireServer(currentKey, mousePart.CFrame)
 					lastSubmit = now
 				end
 			end
@@ -163,7 +156,7 @@ local function startDraggerAction(mPart)
 		end
 
 		selection.Transparency = 1
-		gateway:InvokeServer("ClearKey",dragKey)
+		gateway:InvokeServer("ClearKey", dragKey)
 		currentKey = nil
 	end
 end
@@ -193,9 +186,9 @@ end
 local connections = {}
 
 local function pushConnections(connectionData)
-	for event,func in pairs(connectionData) do
+	for event, func in pairs(connectionData) do
 		local connection = event:Connect(func)
-		table.insert(connections,connection)
+		table.insert(connections, connection)
 	end
 end
 
@@ -212,12 +205,11 @@ end
 
 local function onEquipped(newMouse)
 	mouse = newMouse
-	pushConnections
-	{
-		[mouse.Button1Down] = onButton1Down;
-		[mouse.Button1Up]   = onButton1Up;
-		[mouse.Idle]        = onIdle;
-	}
+	pushConnections({
+		[mouse.Button1Down] = onButton1Down,
+		[mouse.Button1Up] = onButton1Up,
+		[mouse.Idle] = onIdle,
+	})
 end
 
 local function onUnequipped()
@@ -232,5 +224,3 @@ end
 
 tool.Equipped:Connect(onEquipped)
 tool.Unequipped:Connect(onUnequipped)
-
-----------------------------------------------------------------------------------------------------------------------------------------------------------------
